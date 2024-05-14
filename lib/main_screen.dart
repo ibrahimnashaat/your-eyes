@@ -40,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isPermissionGranted = false;
   bool _isArabic = false;
 
+  bool isLoading = true;
+
   CameraController? _cameraController;
 
   final textRecognizer = GoogleMlKit.vision.textRecognizer();
@@ -112,11 +114,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _isPermissionGranted
           ? Stack(
                   children: [
-          SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: _cameraPreviewWidget()),
-          _scanButton(),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height,
+                                      child: _cameraPreviewWidget()
+                                  ),
+                                  _scanButton(),
                   ],
                 )
           : const Center(
@@ -201,16 +204,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _scanImage() async {
     if (_cameraController == null) return;
 
+    if (!isLoading){
+      isLoading = true;
+    }
+
     // Show a loading dialog while processing
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevent dismissing the dialog by tapping outside
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return Center(
           child: CircularProgressIndicator(),
         );
       },
-    );
+    ).whenComplete(() => setState((){
+      isLoading = false;
+
+    }));
 
     try {
       var pictureFile = await _cameraController!.takePicture();
@@ -220,19 +230,19 @@ class _HomeScreenState extends State<HomeScreen> {
       String recognizedText = '';
 
       if (_isArabic) {
-        recognizedText = await FlutterTesseractOcr.extractText(file.path, language: 'ara');
+        recognizedText = await FlutterTesseractOcr.extractText(inputImage.filePath??file.path, language: 'ara');
         await speakTextArabic(recognizedText);
-      } else {
+      }
+      else {
         final recognisedTextInstance = await textRecognizer.processImage(inputImage);
         recognizedText = recognisedTextInstance.text;
         await speakTextEnglish(recognizedText);
       }
 
-      // Close the loading dialog after completion
-      Navigator.of(context).pop();
+      /// Close the loading dialog after completion
 
+      isLoading == true   ? Navigator.pop(context) : null ;
 
-      print(recognizedText);
     } catch (e) {
 
       Navigator.of(context).pop();
@@ -240,4 +250,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+
+
+
+
 }
+
+
+
+
+
+

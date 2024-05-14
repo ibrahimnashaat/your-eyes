@@ -52,6 +52,14 @@ void initState() {
   }
 
   @override
+  void dispose() {
+    FlutterTts flutterTts = FlutterTts();
+    flutterTts.stop(); // إيقاف تشغيل الصوت عند تدمير الحالة
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
