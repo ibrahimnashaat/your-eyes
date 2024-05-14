@@ -19,22 +19,56 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+
+  FlutterTts flutterTts = FlutterTts();
+
+  bool isSpeak = false;
+
   Future<void> speakTextEnglish(String text) async {
-    FlutterTts flutterTts = FlutterTts();
+    setState(() {
+      isSpeak = true;
+    });
+
+    print(isSpeak);
 
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
+
+
+
     await flutterTts.speak(text);
+
+
+    flutterTts.setCompletionHandler(() {
+
+      setState(() {
+        isSpeak = false;
+      });
+    });
+
+
   }
 
 
   Future<void> speakTextArabic(String text) async {
-    FlutterTts flutterTts = FlutterTts();
+
     await flutterTts.setLanguage('ar-SA'); // تعيين اللغة العربية
     await flutterTts.setSpeechRate(0.5); // تعيين معدل النطق
     await flutterTts.setPitch(1); // تعيين المد
+    isSpeak = true;
     await flutterTts.speak(text);
+
+
+    flutterTts.setCompletionHandler(() {
+
+      setState(() {
+        isSpeak = false;
+      });
+    });
+
   }
+
+
 
 
   bool _isPermissionGranted = false;
@@ -202,55 +236,63 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _scanImage() async {
-    if (_cameraController == null) return;
 
-    if (!isLoading){
-      isLoading = true;
+    print(isSpeak);
+
+    if (isSpeak) {
+      flutterTts.stop();
+      isSpeak = false;
     }
+    else {
+      if (_cameraController == null) return;
 
-    // Show a loading dialog while processing
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    ).whenComplete(() => setState((){
-      isLoading = false;
-
-    }));
-
-    try {
-      var pictureFile = await _cameraController!.takePicture();
-      File? file = File(pictureFile.path);
-      var inputImage = InputImage.fromFile(file);
-
-      String recognizedText = '';
-
-      if (_isArabic) {
-        recognizedText = await FlutterTesseractOcr.extractText(inputImage.filePath??file.path, language: 'ara');
-        await speakTextArabic(recognizedText);
-      }
-      else {
-        final recognisedTextInstance = await textRecognizer.processImage(inputImage);
-        recognizedText = recognisedTextInstance.text;
-        await speakTextEnglish(recognizedText);
+      if (!isLoading) {
+        isLoading = true;
       }
 
-      /// Close the loading dialog after completion
+      // Show a loading dialog while processing
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ).whenComplete(() =>
+          setState(() {
+            isLoading = false;
+          }));
 
-      isLoading == true   ? Navigator.pop(context) : null ;
+      try {
+        var pictureFile = await _cameraController!.takePicture();
+        File? file = File(pictureFile.path);
+        var inputImage = InputImage.fromFile(file);
 
-    } catch (e) {
+        String recognizedText = '';
 
-      Navigator.of(context).pop();
-      print('Error: $e');
+        if (_isArabic) {
+          recognizedText = await FlutterTesseractOcr.extractText(
+              inputImage.filePath ?? file.path, language: 'ara');
+          await speakTextArabic(recognizedText);
+        }
+        else {
+          final recognisedTextInstance = await textRecognizer.processImage(
+              inputImage);
+          recognizedText = recognisedTextInstance.text;
+          await speakTextEnglish(recognizedText);
+
+        }
+
+        /// Close the loading dialog after completion
+
+        isLoading == true ? Navigator.pop(context) : null;
+      } catch (e) {
+        Navigator.of(context).pop();
+        print('Error: $e');
+      }
     }
   }
-
-
 
 
 
