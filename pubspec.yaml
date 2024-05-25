@@ -42,6 +42,20 @@ dependencies:
   shared_preferences:
   permission_handler:
   flutter_tts:
+  google_mlkit_object_detection:
+  google_mlkit_image_labeling:
+  firebase_core:
+  speech_to_text:
+  palette_generator:
+  material_color_utilities:
+  color_parser:
+  image:
+  colornames:
+  intl:
+  firebase_storage:
+  firebase_database:
+  google_mlkit_face_detection:
+  animated_bottom_navigation_bar:
 
 dev_dependencies:
   flutter_test:

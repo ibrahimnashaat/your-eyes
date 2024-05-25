@@ -40,12 +40,15 @@ void initState() {
     'يمكنك بعد الدخول على التطبيق أن تضغط على أي مكان في الشاشة لألتقاط صورة وسماع الكلمات الموجودة في الصورة.'
     'كيف تقوم بتغيير اللغة داخل التطبيق'
         'يمكنك بعد الدخول على التطبيق أن تجد في أعلى يمين الشاشة طريقة اختيار اللغة ، يمكنك أن تختار بين اللغة العربية و اللغة الانجليزية'
-        ) : speakTextEnglish('How to take pictures'
-
-        'After entering the application, you can click anywhere on the screen to take a picture and hear the words in the picture.'
-
-        'How do you change the language?'
-        'After entering the application, you can find at the top right of the screen how to choose the language. You can choose between Arabic and English.') ;
+        ) : speakTextEnglish('To use the application'
+        '1- If you want text, please say letters'
+        '2- If you want to know a person, please say Human'
+        '3- If you want to know the time, please say Time'
+        '4- If you want to know the date, please say history'
+        '5- If you want to know the things around you from Please say object'
+        '6- If you want to know the color, please say color.'
+        'We are always with you. We are your eyes.'
+    ) ;
 
     // TODO: implement initState
     super.initState();
@@ -54,7 +57,7 @@ void initState() {
   @override
   void dispose() {
     FlutterTts flutterTts = FlutterTts();
-    flutterTts.stop(); // إيقاف تشغيل الصوت عند تدمير الحالة
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -191,6 +194,64 @@ void initState() {
                         ),
                         const Expanded(
                           child: Text('After entering the application, you can find at the top right of the screen how to choose the language. You can choose between Arabic and English.',
+                            style: TextStyle(
+                                fontSize: 14,
+
+                                color: Colors.grey
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.05,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.fiber_manual_record,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.02,
+                        ),
+                        const Expanded(
+                          child: Text('How to deal with things recognition:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0,top: 10,),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.fiber_manual_record_outlined,
+                          size: 14,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.02,
+                        ),
+                        const Expanded(
+                          child: Text( '1- If you want text, please say letters\n'
+                              '2- If you want to know a person, please say Human\n'
+                              '3- If you want to know the time, please say Time\n'
+                              '4- If you want to know the date, please say history\n'
+                              '5- If you want to know the things around you from Please say object\n'
+                              '6- If you want to know the color, please say color.',
                             style: TextStyle(
                                 fontSize: 14,
 

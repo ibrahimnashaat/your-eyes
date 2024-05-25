@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "497217759351",
+    "project_id": "your-eyes-d45ae",
+    "storage_bucket": "your-eyes-d45ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497217759351:android:650002300dfb59f7397e72",
+        "android_client_info": {
+          "package_name": "com.example.your_eyes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2e_BzBNaDBPfFTij4Z1oJRrJIna2oVIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,11 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.4.1'
+        classpath 'com.google.firebase:firebase-ml-vision-image-label-model:20.0.2'
+        classpath 'com.google.firebase:firebase-ml-vision:24.1.0'
+        classpath 'com.google.firebase:firebase-storage:21.0.0'
+        classpath 'com.google.firebase:firebase-firestore:25.0.0'
     }
 }
 
