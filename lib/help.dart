@@ -20,6 +20,7 @@ class _HelpState extends State<Help> {
 
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.speak(text);
   }
 
@@ -27,7 +28,7 @@ class _HelpState extends State<Help> {
   Future<void> speakTextArabic(String text) async {
     FlutterTts flutterTts = FlutterTts();
     await flutterTts.setLanguage('ar-SA'); // تعيين اللغة العربية
-    await flutterTts.setSpeechRate(0.5); // تعيين معدل النطق
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.setPitch(1); // تعيين المد
     await flutterTts.speak(text);
   }

@@ -25,6 +25,7 @@ class _ColorDetectionState extends State<ColorDetection> {
       isSpeak = true;
     });
     await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.setPitch(1);
     await flutterTts.speak(text);
     flutterTts.setCompletionHandler(() {
@@ -36,7 +37,7 @@ class _ColorDetectionState extends State<ColorDetection> {
 
   Future<void> speakTextArabic(String text) async {
     await flutterTts.setLanguage('ar-SA');
-    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.setPitch(1);
     isSpeak = true;
     await flutterTts.speak(text);

@@ -25,6 +25,7 @@ class _ObjectDetectionState extends State<ObjectDetection> {
     });
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.speak(text);
     flutterTts.setCompletionHandler(() {
       setState(() {
@@ -35,7 +36,7 @@ class _ObjectDetectionState extends State<ObjectDetection> {
 
   Future<void> speakTextArabic(String text) async {
     await flutterTts.setLanguage('ar-SA');
-    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.setPitch(1);
     isSpeak = true;
     await flutterTts.speak(text);
@@ -263,7 +264,7 @@ class _ObjectDetectionState extends State<ObjectDetection> {
         String detectedObjects = '';
 
         for (var label in labels) {
-          detectedObjects += 'Detected ${label.label}';
+          detectedObjects += label.label;
           print('Detected ${label.label} with confidence ${label.confidence}\n');
         }
 

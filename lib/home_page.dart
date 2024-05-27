@@ -126,6 +126,9 @@ class _HomePageState extends State<HomePage> {
       case 'time':
         Navigator.push(context,MaterialPageRoute(builder: (context)=> TimeDetection()));
         break;
+      case 'the date':
+        Navigator.push(context,MaterialPageRoute(builder: (context)=> DateDetection()));
+        break;
       case 'history':
         Navigator.push(context,MaterialPageRoute(builder: (context)=> DateDetection()));
         break;

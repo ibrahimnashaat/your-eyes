@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     FlutterTts flutterTts = FlutterTts();
 
     await flutterTts.setLanguage("en-US");
-    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.setPitch(1);
     await flutterTts.speak(text);
 
